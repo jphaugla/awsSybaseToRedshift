@@ -1,0 +1,8 @@
+{
+      "Username": "master", 
+      "Password": "Password1", 
+      "ServerName": "sybase-redshiftcluster-gfdx023nroc7.cjxhsn3bljn8.us-east-1.redshift.amazonaws.com",
+      "Port": 5432, 
+      "DatabaseName": "dev", 
+      "BucketFolder": "sybase-redshift-csvs-selfjjdhdyheuy"
+}

@@ -335,7 +335,6 @@ Resources:
         - 'arn:aws:iam::aws:policy/service-role/AmazonDMSVPCManagementRole'
       Path: /
 
-
   ClientEC2AccessRole:
     Type: AWS::IAM::Role
     Properties:
@@ -357,6 +356,7 @@ Resources:
                   - 'dms:StartReplicationTask'
                   - 'dms:StopReplicationTask'
                 Resource: ['*']
+
   RedshiftRole:
     Type: AWS::IAM::Role
     Properties :
@@ -448,6 +448,12 @@ Resources:
       Path: "/"
       Roles:
         - !Ref ClientEC2AccessRole
+
+  S3RedshiftCSV:      
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: "sybase-redshift-csvs"
 
   LinuxServer:
     Type: 'AWS::EC2::Instance'

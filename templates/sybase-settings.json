@@ -1,0 +1,7 @@
+{
+      "Username": "sa", 
+      "Password": "Sybase123", 
+      "ServerName": "10.0.50.140", 
+      "Port": 5000, 
+      "DatabaseName": "pubs2" 
+}

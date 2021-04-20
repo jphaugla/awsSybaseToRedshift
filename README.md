@@ -81,4 +81,65 @@ isql -Usa -SSYBASE -PSybase123
 ```
 * manually install sample databases (not necessary if changed above)
 cd 
-isql -Usa -SSYBASE -PSybase123 -i ./installpubs2
+### check out the databases
+Handy Sybase cheat sheet [link](http://www.dbatodba.com/sybase/how-tos/sysbase-commands/)
+this will first show all the database, use the pubs2 database, list all tables in pub and then select all rows from author
+```bash
+isql -Usa -SSYBASE -PSybase123 
+sp_helpdb
+go
+use pubs2
+go
+sp_help
+go
+select * from authors
+go
+
+## Windows Steps
+* Use the internal IP address for the EC2instance to connect using RDP
+* Download [Toad for Sybase](https://www.quest.com/register/55632/)
+* Install Toad and login to Toad
+* Use Linux Server Host IP, Port 5000, User: sa and Password: Sybase123
+
+
+### SCT
+####  this part is not needed for Redshift as neither RedShift or MS SQLServer are SCT targets when using Sybase ASE as a source
+Able to verify connectivity to Sybase using SCT and can convert to postgresql but not helpful for this use case
+
+* copy the jdbc driver and directories from the Linux server at /opt/sap/jConnect-16_0 to the ./Desktop/DMS Workship/JDBC directory
+
+Return back to the DMS and SCT steps using the SQL Server to Amazon Aurora PostgreSQL
+
+* Start back at this point in the [guide](https://dms-immersionday.workshop.aws/en/sqlserver-aurora-postgres.html)
+* Perform the following Part 1 Schema Conversion Steps: "Connect to the EC2 Instance", "Install the AWS Schema Conversion Tool (AWS SCT)"
+* Create a New Project using New Project Wizard 
+* Connect to Sybase 
+    * jar driver is in ./Desktop/DMS Workship/JDBC/jConnect-16_0 
+* Accept the risks
+* Under the "pubs2" database on the left panel, click on the dbo schema  and click "Next" to generate the assessment report
+* Click Next and enter parameters for Aurora PostgreSQL connection 
+    * To find the password, look back in the original templates/DMSWorkshop.yaml in the repository home
+    * Click "Finish"
+* Right click on the "dbo" schema in the left panel and select Convert Schema to generate the data definition language (DDL) statements for the target database.
+* Right click on the dbo schema in the right-hand panel, and click Apply to
+
+### Complete DMS steps
+The cloudFormation script does not support setting up the DMS endpoint for DocumentDB.  Using CLI bash scripts for the remaining setup
+* NOTE:  each of these scripts needs to have the ARNs corrected for your current environment.  So, the createDocDBEndpoint.sh needs the documentDB cluster ARN and the ARN of the created cerficate.  The createReplicationTask.sh needs the ARN for the dynamoDB endpoint, the documentDB endpoint, and the replication instance ARN.
+```bash
+cd templates
+# add IAM roles
+./createRedshiftRole.sh
+./createS3Policy.sh
+# create the endpoint for redshift target
+# edit the redshift-settings.json file for the correct endpoint in the ServerName
+./createRedshiftEndpoint.sh
+# edit the sybase-settings.json file for the correct LinuxInstance private IP address in the ServerName
+# create the sybase endpoint after editing the script for the LinuxInstance private IP address
+./createSybaseEndpoint.sh
+# edit the pertinent arns for the source endpoint, target endpoint, replication instance and then run the create replication scripts
+./createReplicationTask.sh
+# edit the start replication script for ARN of the replication task
+./startReplication.sh
+```
+
