@@ -1,5 +1,4 @@
 # awsSybaseToRedshift
-##  THIS IS NOT READY YET
 ## Purpose
 
 Demonstrates installing Sybase ASE to an redhat 8 EC2 instance and using this as source for DMS to migrate to Redshift
@@ -17,6 +16,10 @@ Cloud formation template to create a Windows EC2 to run the Schema Conversion To
 - [Instructions](#instructions)
   - [Create Environment](#create-environment)
   - [Sybase Installation](#sybase-installation)
+  - [Verify Databases](#verify-databases)
+- [Windows Steps](#windows-steps)
+- [SCT](#SCT)
+- [Complete DMS Steps](#complete-dms-steps)
 ## AWS Services Used
 
 * [AWS DMS Database Migration Service](https://aws.amazon.com/dms/)
@@ -81,7 +84,7 @@ isql -Usa -SSYBASE -PSybase123
 ```
 * manually install sample databases (not necessary if changed above)
 cd 
-### check out the databases
+### Verify Databases
 Handy Sybase cheat sheet [link](http://www.dbatodba.com/sybase/how-tos/sysbase-commands/)
 this will first show all the database, use the pubs2 database, list all tables in pub and then select all rows from author
 ```bash
@@ -94,6 +97,7 @@ sp_help
 go
 select * from authors
 go
+```
 
 ## Windows Steps
 * Use the internal IP address for the EC2instance to connect using RDP
@@ -123,7 +127,7 @@ Return back to the DMS and SCT steps using the SQL Server to Amazon Aurora Postg
 * Right click on the "dbo" schema in the left panel and select Convert Schema to generate the data definition language (DDL) statements for the target database.
 * Right click on the dbo schema in the right-hand panel, and click Apply to
 
-### Complete DMS steps
+### Complete DMS Steps
 The cloudFormation script does not support setting up the DMS endpoint for DocumentDB.  Using CLI bash scripts for the remaining setup
 * NOTE:  each of these scripts needs to have the ARNs corrected for your current environment.  So, the createDocDBEndpoint.sh needs the documentDB cluster ARN and the ARN of the created cerficate.  The createReplicationTask.sh needs the ARN for the dynamoDB endpoint, the documentDB endpoint, and the replication instance ARN.
 ```bash
