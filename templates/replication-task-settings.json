@@ -2,12 +2,12 @@
 {
   "FullLoadSettings": {
     "TargetTablePrepMode": "DO_NOTHING",
-    "CreatePkAfterFullLoad": false,
+    "CreatePkAfterFullLoad": true,
     "StopTaskCachedChangesApplied": false,
     "StopTaskCachedChangesNotApplied": false,
-    "MaxFullLoadSubTasks": 8,
+    "MaxFullLoadSubTasks": 1,
     "TransactionConsistencyTimeout": 600,
-    "CommitRate": 10000
+    "CommitRate": 1000
   },
   "Logging": {
     "EnableLogging": true

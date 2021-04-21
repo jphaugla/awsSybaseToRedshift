@@ -65,7 +65,7 @@ chown ec2-user:ec2-user ../software/sybaseASE/
 cd ../software/sybaseASE/
 tar -xvf ASE_Suite.linuxamd64.tar
 cd ebf29650
-cat sample_response.txt | sed '/SY_CFG_ASE_SAMPLE_DB=false/ s/false/true/' | sed '/SY_CFG_ASE_MASTER_DEV_SIZE=/ s/52/2000/' |  sed '/SY_CFG_ASE_MASTER_DB_SIZE=/ s/26/1000/' > response.txt
+cat sample_response.txt | sed '/SY_CFG_ASE_SAMPLE_DB=false/ s/false/true/' | sed '/SY_CFG_ASE_MASTER_DEV_SIZE=/ s/52/2000/' |  sed '/SY_CFG_ASE_MASTER_DB_SIZE=/ s/26/1000/' | sed '/SY_CFG_ASE_PAGESIZE=/ s/4k/8k/' > response.txt
 nohup ./setup.bin -f response.txt -i silent -DAGREE_TO_SAP_LICENSE=true -DRUN_SILENT=true > install.out 2>&1 &
 ```
 * verify installation was successful by first finding servers and then logging in
