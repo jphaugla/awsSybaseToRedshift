@@ -98,6 +98,29 @@ go
 select * from authors
 go
 ```
+```bash
+isql -Usa -SSYBASE -PSybase123 
+1> sp_setreptable authors, 'true'
+2> go
+1> sp_setreptable stores, 'true'
+2> go
+1> sp_setreptable blurbs, 'true'
+2> go
+1> sp_setreptable publishers, 'true'
+2> go
+1> sp_setreptable discounts, 'true'
+2> go
+1> sp_setreptable salesdetail, 'true'
+2> go
+1> sp_setreptable titles, 'true'
+2> go
+1> sp_setreptable titleauthor, 'true'
+2> go
+1> sp_setreptable
+2> go
+1> dbcc settrunc('ltm', 'valid')
+2> go
+```
 
 ## Windows Steps
 * Use the internal IP address for the EC2instance to connect using RDP
