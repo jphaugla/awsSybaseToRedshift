@@ -169,4 +169,19 @@ cd templates
 # edit the start replication script for ARN of the replication task
 ./startReplication.sh
 ```
+### Results
 
+Should see the bulk load tables statistics when clicking on the table statistics tab for the database migration task.
+
+Insert additional rows to see the change data capture move those rows to the target
+
+```bash
+isql -Usa -SSYBASE -PSybase123 
+1> use pubs2
+2> go
+1> insert into authors values ('111-11-1111', 'Olson', 'Jeremiah', '612-888-2323', '1111 Waltrup Road', 'Minneapolis', 'MN', 'USA', '55407')
+2> go
+(1 row affected)
+1> commit
+2> go
+```
