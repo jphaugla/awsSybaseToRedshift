@@ -7,6 +7,7 @@ start up environment
 ## Overview
 
 Cloud formation template to create a Windows EC2 to run the Schema Conversion Tool, a redhat EC2 instance to run Sybase ASE, target Redshift database and the DMS components to do the migration
+Good blog on using [Sybase ASE as a source](https://aws.amazon.com/blogs/database/migrating-from-sap-ase-to-amazon-aurora-postgresql/)
 
 ## Outline
 
